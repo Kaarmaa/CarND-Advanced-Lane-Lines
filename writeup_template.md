@@ -134,4 +134,14 @@ Here's a [link to my video result](./project_output.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further. 
+
+When looking into the project, I made a decision up front to try and achieve acceptable performance with a frame by frame approach, not relying on other frames than the current one. If this could be accomplished (it was), then additional stability can be implemented with historical data to improve the performance, rather than using it as a crutch to make it just "good enough". 
+
+#### Future Improvements 
+
+In order to deploy this on a vehicle, more testing will be needed with night data. I am concerned about the lumninance filter being too high for night scenarios and losing lane information. 
+
+There also needs to be a better way to handle non-level host position. When going on the overpass in the given scenario, one can see the car bounce, and this causes an immediate degredation in the quality of the calculated lane.
+#### Rework Notes
+1) Changes made to fix lane deviations. I determined that shadows were causing more issues than expected, so I added a lumninance filter to the binary masked image generation block. This eliminated a lot of noise around the pixels of interest.
