@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95e5de3b-3d60-459b-bbc4-91a6f48bfaa0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CarND-Advanced-Lane-Lines.iml" afterPath="$PROJECT_DIR$/.idea/CarND-Advanced-Lane-Lines.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Project4.ipynb" afterPath="$PROJECT_DIR$/Project4.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/Project4.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="23" />
+              <selected id="26" />
             </state>
           </provider>
         </entry>
@@ -41,6 +38,7 @@
       <find>test_images</find>
       <find>detect_lane_edges</find>
       <find>detectedLanes</find>
+      <find>perspective_swap</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -234,7 +232,7 @@
     <entry file="file://$PROJECT_DIR$/Project4.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="23" />
+          <selected id="26" />
         </state>
       </provider>
     </entry>
