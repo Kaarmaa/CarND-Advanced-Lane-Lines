@@ -67,14 +67,18 @@ The first use of a color and gradient transforms is in Cell 5. This is admittedl
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+Cell 6: 
+
+The code for my perspective transform includes a function called `perspective_swap()`, which appears in Cell 6. This function takes as inputs an image (`img`), as well as optional params swap_back, draw_regions, and plot_enable.  
+
+I chose the hardcode the source and destination points in the following manner:
 
 ```python
 src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
+    [[(img_size[0] / 2) - 45, img_size[1] / 2 + 100],
+    [((img_size[0] / 6) + 80), img_size[1]],
+    [(img_size[0] * 5 / 6) - 30, img_size[1]],
+    [(img_size[0] / 2 + 45), img_size[1] / 2 + 100]])
 dst = np.float32(
     [[(img_size[0] / 4), 0],
     [(img_size[0] / 4), img_size[1]],
@@ -82,42 +86,40 @@ dst = np.float32(
     [(img_size[0] * 3 / 4), 0]])
 ```
 
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
-
-![alt text][image4]
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image. HOWEVER, parallel lines only looked nice to a human eye. The predefined limits allowed too much extraneous data on the edges that was causing additional issues. It is for this reason that new src points were chosen, and do not guarantee a perfrectly parallel projection.
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
+Cell 10 / 11:
+Cell 10 includes the `detect_lane_edges()` function. It is in this function that I implemented a windowing search and processing to isolate points that belong to the edges of the lane. I iterate over these windows, accumulating the points, and performning a 2nd order polynomial fit. This function returns the coefficients to the calling function.
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+Cell 11 includes the manual test section, and both the plain binary thresholded image `src` is available, as well as a second image with the windowing scheme (green), Pixels associated to lane markings (Red / Blue for L/R), and the histogram used to place the first window is in pink on the bottom.
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Cell 12:
+Cell 12 has the `calc_curve_radius()` function. The inputs are the coeffients for each side of the lane(output from `detect_lane_edges()`), as well as a pixel index indicating the center pixel of the parent image. This is needed to convert from px distance from center image to a real world measurement in meters from center of lane.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+Cell 13 - 15
+Cell 13 has the `LanePoly()` function which is the parent function for most functionality highlighting the lane. It will call functions like to `detect_lane_edges()` to retrieve the polynomials describing the edges of the lane, as well as build the actual polygon overlay. It also handles calling the function to calcaulate curve radius and lane offset of host.
+Cell 14 is the test code for generating a warped polygon and unwarping it, back into the same projection as the test image.
+Cell 15 takes the lane masks from Cell 14 and overlays them onto the test image.
 
 ![alt text][image6]
 
----
+#### 7. Additional Cells.
+Cell 16 defines a helper function of overlay the outputs for L/R radius as well as center offset calculations
 
+---
 ### Pipeline (video)
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-
-Here's a [link to my video result](./project_video.mp4)
+Cell 17:
+Cell 17 has the definition of the Video pipeline, cleaned up from the debug cells before.
+Here's a [link to my video result](./project_output.mp4)
 
 ---
 
