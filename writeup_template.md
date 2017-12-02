@@ -21,8 +21,8 @@ The goals / steps of this project are the following:
 
 [image1]: ./writeup/calibration2.jpg "Distorted"
 [image2]: ./writeup/calibration2_ChessboardUndistorted.jpg "Undistorted"
-[image3]: ./writeup/Projection.JPG "Projection"
-[image4]: ./writeup/lane_pixels.jpg "Lane Pixel Isonlation"
+[image3]: ./writeup/Projection.jpg "Projection"
+[image4]: ./writeup/lane_pixels.JPG "Lane Pixel Isonlation"
 [image5]: ./writeup/warp_back_down.jpg "Lane Polynomial"
 [image6]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image7]: ./examples/example_output.jpg "Output"
@@ -127,6 +127,7 @@ Cell 17:
 Cell 17 has the definition of the Video pipeline, cleaned up from the debug cells before.
 Here's a [link to my video result](./project_output.mp4)
 
+![Video][video1]
 ---
 
 ### Discussion
