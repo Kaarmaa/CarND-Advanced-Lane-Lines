@@ -19,11 +19,11 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/chessboard/calibration2_Chessboard.jpg "Undistorted"
-[image2]: ./output_images/undistorted/calibration2_Chessboard.jpg "Undistorted"
-[image3]: ./test_images/test1.jpg "Road Transformed"
-[image4]: ./examples/binary_combo_example.jpg "Binary Example"
-[image5]: ./examples/warped_straight_lines.jpg "Warp Example"
+[image1]: ./writeup/calibration2.jpg "Distorted"
+[image2]: ./writeup/calibration2_ChessboardUndistorted.jpg "Undistorted"
+[image3]: ./writeup/Projection.JPG "Projection"
+[image4]: ./writeup/lane_pixels.jpg "Lane Pixel Isonlation"
+[image5]: ./writeup/warp_back_down.jpg "Lane Polynomial"
 [image6]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image7]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
@@ -52,6 +52,8 @@ Cell 4: Applied camera calibration to the real world, test images
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+![Distorted Image][image1]
+![Undistorted Image][image2]
 
 ### Pipeline (single images)
 
@@ -88,6 +90,8 @@ dst = np.float32(
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image. HOWEVER, parallel lines only looked nice to a human eye. The predefined limits allowed too much extraneous data on the edges that was causing additional issues. It is for this reason that new src points were chosen, and do not guarantee a perfrectly parallel projection.
 
+![Projection Comparison][image3]
+
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Cell 10 / 11:
@@ -95,6 +99,8 @@ Cell 10 includes the `detect_lane_edges()` function. It is in this function that
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 Cell 11 includes the manual test section, and both the plain binary thresholded image `src` is available, as well as a second image with the windowing scheme (green), Pixels associated to lane markings (Red / Blue for L/R), and the histogram used to place the first window is in pink on the bottom.
+
+![Lane Pixel detection][image4]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -108,7 +114,7 @@ Cell 13 has the `LanePoly()` function which is the parent function for most func
 Cell 14 is the test code for generating a warped polygon and unwarping it, back into the same projection as the test image.
 Cell 15 takes the lane masks from Cell 14 and overlays them onto the test image.
 
-![alt text][image6]
+![Lane Polygon][image5]
 
 #### 7. Additional Cells.
 Cell 16 defines a helper function of overlay the outputs for L/R radius as well as center offset calculations
